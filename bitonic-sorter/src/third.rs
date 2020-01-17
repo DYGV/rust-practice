@@ -103,6 +103,7 @@ where
 mod tests {
     // 親モジュール(first)のsort関数を使用する
     use super::{sort, sort_by};
+    use crate::utils::{is_sorted_ascending, is_sorted_descending, new_u32_vec};
     use crate::SortOrder::*;
 
     // deriveアトリビュートを使い、DebugトレイトとPartialEqトレイトの実装を自動導出する
@@ -124,6 +125,29 @@ mod tests {
                 last_name: last_name.to_string(),   // last_nameフィールドに値を設定
                 age,                                // ageフィールドにage変数の値を設定
             }
+        }
+    }
+
+    #[test]
+    fn sort_u32_large() {
+        {
+            // 昇順
+            // 2^16 = 65,536
+            let mut x = new_u32_vec(65536);
+            assert_eq!(sort(&mut x, &Ascending), Ok(()));
+
+            // cargo test -- --nocaptureで出力できる
+            /* for i in &x {
+                print!("{}, ", i);
+            } */
+            // ソートが正しいことを確認する
+            assert!(is_sorted_ascending(&x));
+        }
+        {
+            // 降順
+            let mut x = new_u32_vec(65536);
+            assert_eq!(sort(&mut x, &Descending), Ok(()));
+            assert!(is_sorted_descending(&x));
         }
     }
 
