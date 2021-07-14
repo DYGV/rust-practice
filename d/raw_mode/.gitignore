@@ -1,0 +1,15 @@
+.dub
+docs.json
+__dummy.html
+docs/
+/rawmode
+rawmode.so
+rawmode.dylib
+rawmode.dll
+rawmode.a
+rawmode.lib
+rawmode-test-*
+*.exe
+*.o
+*.obj
+*.lst
